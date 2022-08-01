@@ -9,43 +9,47 @@
 
   <body>
     <header>
-        <h2>My Cocktail Library</h2>
+        <h1>My Cocktail Library</h1>
     </header>
 
-    <div id="cocktail-menu">
+    <div>
         <label for="select-ingredient">Filter by Cocktail Ingredient: </label>
         <select id="select-ingredient" name="select-ingredient">
             <!-- Alcohol option will go here -->
         </select>
-        <!-- Cocktail images will go here -->
     </div>
 
-    <div id="cocktail-detail">
+    <div id="container">
+        <div id="cocktail-menu">
+            <!-- Cocktail images will go here -->
+        </div>
+        
         <div>
-            <!-- <img id="detail-image" src="Insert source" alt="Insert alt text" /> -->
+            <img id="detail-image" src="" alt="Insert alt text" />
+        </div>
+
+        <div id="cocktail-detail">
             <h2 id="name">Cocktail Name</h2>
             <h3>Ingredients</h3>
             <p id="ingredients">List Ingredients</p>
             <h3>Recipe</h3>
             <p id="recipe">Recipe</p>
-        </div>
-
-        <div>
             <h3>Rating:</h3>
-            <p id="rating">Insert rating here</p>
+            <p id="rating">No ratings yet.</p>
             <h3>Comment:</h3>
-            <p id="comment">Insert comment here</p>
-        </div>
+            <p id="comment">No comments yet.</p>
 
-        <form id="edit-cocktail">
-            <h4>Update This Cocktail</h4>
-            <label for="rating">Rating: </label>
-            <input type="number" name="rating" id="update-rating" />
-            <label for="comment">Comment: </label>
-            <textarea name="comment" id="update-comment"></textarea>
-            <input type="submit" value="Submit" />
-        </form>
+            <form id="edit-cocktail">
+                <h3>Update This Cocktail</h3>
+                <label for="rating">Rating: </label>
+                <input type="number" name="rating" id="update-rating" />
+                <label for="comment">Comment: </label>
+                <textarea name="comment" id="update-comment"></textarea>
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
     </div>
+
   </body>
 
 </html>

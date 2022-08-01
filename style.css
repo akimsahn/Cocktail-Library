@@ -1,9 +1,29 @@
-div#cocktail-menu {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+body {
+    margin: 1rem;
+}
+#select-ingredient {
+    margin-bottom: 1rem;
 }
 
-div div img {
-    width: 100px;
+div#container {
+    display: flex;
+}
+
+#cocktail-detail {
+    position: fixed;
+    padding: 2rem;
+    left: 60%;
+    right: 4rem;
+    margin-top: 4rem;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+#detail-image {
+    position: fixed;
+    left: 30%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
 }
