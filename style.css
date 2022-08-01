@@ -1,0 +1,9 @@
+div#cocktail-menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+div div img {
+    width: 100px;
+}
