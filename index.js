@@ -25,6 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
             ingOption.textContent = ingredient.strIngredient1
             filterMenu.append(ingOption)
         });
+        filterMenu.addEventListener('change', (e) => {
+            let alcohol = e.target.value.replace(/\s/g,"_")
+            renderCocktailMenu(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${alcohol}`)
+        })
     }
 
     function renderCocktailMenu(url) {
@@ -38,12 +42,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderEachCocktail(dataObj) {
         const menu = document.querySelector('#cocktail-menu')
+
+        document.querySelectorAll('div.displayed').forEach(e => e.remove())
+
         dataObj.drinks.forEach(cocktail => {
+
             const div = document.createElement('div')
             const img = document.createElement('img')
             const name = document.createElement('h4')
             img.src = `${cocktail.strDrinkThumb}/preview`
             name.textContent = cocktail.strDrink
+            div.classList.add('displayed')
             div.append(img, name)
             menu.appendChild(div)
 
@@ -58,33 +67,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         fetchData(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${cocktail.idDrink}`)
         .then(data => {
-            curCocktail = data.drinks[0]
-            console.log(curCocktail)
-            detailImage.src = curCocktail.strDrinkThumb
-            name.textContent = curCocktail.strDrink
-            recipe.textContent = curCocktail.strInstructions
-            rating.textContent = curCocktail.rating
-            comment.textContent = curCocktail.comment
+            detailImage.src = data.drinks[0].strDrinkThumb
+            name.textContent = data.drinks[0].strDrink
+            recipe.textContent = data.drinks[0].strInstructions
         })
     }
 
     function handleForm(e) {
         e.preventDefault()
-        curCocktail.rating = e.target['update-rating'].value
-        curCocktail.comment = e.target['update-comment'].value
-        rating.textContent = curCocktail.rating
-        comment.textContent = curCocktail.comment
+        rating.textContent = e.target['update-rating'].value
+        comment.textContent = e.target['update-comment'].value
         form.reset()
     }
 
     // Invoking Functions
     renderFilter()
     renderCocktailMenu(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic`)
-
-
-    // fetchData('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=tequila')
-
-    fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic`)
-    .then(res => res.json())
-    .then(data => console.log(data.drinks))
 })

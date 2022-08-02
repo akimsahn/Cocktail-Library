@@ -9,18 +9,46 @@ div#container {
     display: flex;
 }
 
+div#cocktail-menu {
+    display: flex;
+    flex-wrap: wrap;
+    width: 40%;
+    text-align: center;
+}
+
+div#cocktail-menu div {
+    display: block;
+    height: 200px;
+    margin: 0 1rem 1rem 0;
+}
+
+div#cocktail-menu div h4 {
+    position: relative;
+    bottom: 60%;
+    width: 200px;
+    opacity: 0%;
+}
+
+div#cocktail-menu div:hover img {
+    opacity: 50%;
+}
+
+div#cocktail-menu div:hover h4 {
+    opacity: 100%;
+}
+
 #cocktail-detail {
     position: fixed;
     padding: 2rem;
     left: 60%;
     right: 4rem;
-    margin-top: 4rem;
+    margin-top: 2rem;
     background-color: rgba(255, 255, 255, 0.5);
 }
 
 #detail-image {
     position: fixed;
-    left: 30%;
+    left: 40%;
 }
 
 form {
