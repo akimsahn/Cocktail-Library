@@ -40,31 +40,47 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // This function populates the detailed section with the selected cocktail
+    // This function renders the detailed section with the selected cocktail
     function renderOneCocktail(cocktail) {
         const detailRating = document.querySelector('#rating')
         const detailComment = document.querySelector('#comment')
+        
+        curCocktail = cocktail
+        detailRating.textContent = typeof(curCocktail.rating) != 'undefined' ? curCocktail.rating : 'No ratings yet.'
+        detailComment.textContent = typeof(curCocktail.comment) != 'undefined' ? curCocktail.comment : 'No comments yet.'
+        
+        fetchData(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${curCocktail.idDrink}`)
+        .then(data => renderCocktailDetail(data))
+    }
+    
+    // This functions populates the detailed information of the selected cocktail
+    function renderCocktailDetail(cocktail) {
         const detailName = document.querySelector('#name')
         const detailRecipe = document.querySelector('#recipe')
         const detailImage = document.querySelector('#detail-image')
+        const detailIngredients = document.querySelector('#ingredients')
 
-        curCocktail = cocktail
-        detailRating.textContent = curCocktail.rating
-        detailComment.textContent = curCocktail.comment
+        detailImage.src = cocktail.drinks[0].strDrinkThumb
+        detailName.textContent = cocktail.drinks[0].strDrink
+        detailRecipe.textContent = cocktail.drinks[0].strInstructions
         
-        fetchData(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${curCocktail.idDrink}`)
-        .then(data => {
-            detailImage.src = data.drinks[0].strDrinkThumb
-            detailName.textContent = data.drinks[0].strDrink
-            detailRecipe.textContent = data.drinks[0].strInstructions
-        })
+        let i = 1
+        let ingredientKey = `strIngredient${i}`
+        let ingredientString = cocktail.drinks[0][ingredientKey]
+        do {
+            if (i !== 1) {ingredientString = `${ingredientString}, ${cocktail.drinks[0][ingredientKey]}`}
+            i++
+            ingredientKey = `strIngredient${i}`
+        }
+        while (cocktail.drinks[0][ingredientKey] != null)
+        detailIngredients.textContent = ingredientString
     }
 
     // This function updates the rating and comment when the update form is submitted
     function handleForm(e) {
         e.preventDefault()
-        curCocktail['rating'] = e.target['update-rating'].value
-        curCocktail['comment'] = e.target['update-comment'].value
+        if (e.target['update-rating'].value != '') {curCocktail['rating'] = e.target['update-rating'].value}
+        if (e.target['update-comment'].value != '') {curCocktail['comment'] = e.target['update-comment'].value}
         renderOneCocktail(curCocktail)
         updateForm.reset()
     }
