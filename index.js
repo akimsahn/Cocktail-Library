@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Global Variables
     const updateForm = document.querySelector('#edit-cocktail')
+    const detailRating = document.querySelector('#rating')
+    const detailComment = document.querySelector('#comment')
     let curCocktail = {}
 
 // Basic Reusable Fetch Request
@@ -42,13 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // This function renders the detailed section with the selected cocktail
     function renderOneCocktail(cocktail) {
-        const detailRating = document.querySelector('#rating')
-        const detailComment = document.querySelector('#comment')
+        // const detailRating = document.querySelector('#rating')
+        // const detailComment = document.querySelector('#comment')
         
         curCocktail = cocktail
         detailRating.textContent = typeof(curCocktail.rating) != 'undefined' ? curCocktail.rating : 'No ratings yet.'
         detailComment.textContent = typeof(curCocktail.comment) != 'undefined' ? curCocktail.comment : 'No comments yet.'
-        
         fetchData(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${curCocktail.idDrink}`)
         .then(data => renderCocktailDetail(data))
     }
@@ -81,7 +82,9 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault()
         if (e.target['update-rating'].value != '') {curCocktail['rating'] = e.target['update-rating'].value}
         if (e.target['update-comment'].value != '') {curCocktail['comment'] = e.target['update-comment'].value}
-        renderOneCocktail(curCocktail)
+        detailRating.textContent = curCocktail.rating
+        detailComment.textContent = curCocktail.comment
+        // renderOneCocktail(curCocktail)
         updateForm.reset()
     }
 
@@ -111,6 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Invoking Functions
     renderFilter()
-    renderCocktailMenu(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic`)
+    renderCocktailMenu(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=light_rum`)
 
 })
