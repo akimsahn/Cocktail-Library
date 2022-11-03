@@ -10,3 +10,4 @@ With this app, you can:
 3. Submit form to add or update ratings/comments on any specific recipe
 
 This app was built using purely vanilla JavaScript.
+Cocktail data accessed from https://www.thecocktaildb.com/'s free json API.
